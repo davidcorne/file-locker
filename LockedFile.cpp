@@ -110,7 +110,8 @@ LockedFile::LockedFile(std::string path, std::unique_ptr<Error>& err)
       &overlapped                // LPOVERLAPPED lpOverlapped
     );
     if (!ok) {
-      // <nnn> error = new olbFileUsedByAnotherProcess(file);
+      
+      // err.reset(new FileUsedByAnotherProcess(path));
     }
   }
 }
