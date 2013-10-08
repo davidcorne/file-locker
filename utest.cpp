@@ -157,7 +157,7 @@ void utest_LockedFile::test_non_existant_file()
 //=============================================================================
 void utest_LockedFile::test_file_locks()
 {
-  std::string file_name("temporary_data.txt");
+  std::string file_name("test_area/temporary_data.txt");
   std::ofstream test_file;
   test_file.open(file_name, std::ios::out);
   test_file << "Writing to this file.\n";

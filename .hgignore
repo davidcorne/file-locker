@@ -7,3 +7,6 @@ syntax: glob
 *.ilk
 *.pdb
 *.suo
+
+# test writing area
+test_area/*
