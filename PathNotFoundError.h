@@ -1,6 +1,8 @@
 #ifndef PathNotFoundError_H
 #define PathNotFoundError_H
 
+#include "Error.h"
+
 //=============================================================================
 class PathNotFoundError : public Error {
 public:

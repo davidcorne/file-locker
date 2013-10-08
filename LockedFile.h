@@ -1,6 +1,15 @@
 #ifndef LockedFile_H
 #define LockedFile_H
 
+#include <assert.h>
+#include <string>
+#include <memory>
+
+#include <Windows.h>
+
+#include "Error.h"
+#include "PathNotFoundError.h"
+
 //=============================================================================
 class LockedFile {
 public:

@@ -1,6 +1,8 @@
 #ifndef Error_H
 #define Error_H
 
+#include <string>
+
 //=============================================================================
 class Error {
 public:
