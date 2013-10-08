@@ -9,20 +9,7 @@
 #include <memory>
 #include <Windows.h>
 
-//=============================================================================
-class Error {
-public:
-  
-  Error();
-
-  virtual std::string to_string() const = 0;
-
-  virtual ~Error() = 0;
-};
-
-Error::Error() {}
-Error::~Error() {}
-
+#include "Error.h"
 #include "PathNotFoundError.h"
 #include "LockedFile.h"
 
