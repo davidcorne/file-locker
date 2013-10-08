@@ -1,3 +1,6 @@
+#ifndef LockedFile_H
+#define LockedFile_H
+
 //=============================================================================
 class LockedFile {
 public:
@@ -65,3 +68,5 @@ LockedFile::~LockedFile()
 {
   CloseHandle(m_file_handle);
 }
+
+#endif

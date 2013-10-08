@@ -1,3 +1,6 @@
+#ifndef PathNotFoundError_H
+#define PathNotFoundError_H
+
 //=============================================================================
 class PathNotFoundError : public Error {
 public:
@@ -30,3 +33,4 @@ PathNotFoundError::~PathNotFoundError()
 {
 }
 
+#endif

@@ -1,3 +1,6 @@
+#ifndef Error_H
+#define Error_H
+
 //=============================================================================
 class Error {
 public:
@@ -17,3 +20,4 @@ Error::~Error()
 {
 }
 
+#endif
