@@ -9,8 +9,6 @@
 #include <memory>
 #include <Windows.h>
 
-// <nnn> using namespace std;
-
 //=============================================================================
 class Error {
 public:
@@ -110,7 +108,6 @@ LockedFile::LockedFile(std::string path, std::unique_ptr<Error>& err)
       &overlapped                // LPOVERLAPPED lpOverlapped
     );
     if (!ok) {
-      
       // err.reset(new FileUsedByAnotherProcess(path));
     }
   }
