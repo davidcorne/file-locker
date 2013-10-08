@@ -1,21 +1,4 @@
-#ifndef PathNotFoundError_H
-#define PathNotFoundError_H
-
-#include "Error.h"
-
-//=============================================================================
-class PathNotFoundError : public Error {
-public:
-
-  PathNotFoundError(std::string path);
-
-  virtual std::string to_string() const override;
-
-  virtual ~PathNotFoundError();
-private:
-
-  std::string m_path;
-};
+#include "LockedFile/PathNotFoundError.h"
 
 //=============================================================================
 PathNotFoundError::PathNotFoundError(std::string path)
@@ -34,5 +17,3 @@ std::string PathNotFoundError::to_string() const
 PathNotFoundError::~PathNotFoundError()
 {
 }
-
-#endif

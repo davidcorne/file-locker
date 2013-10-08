@@ -7,11 +7,10 @@
 #include <fstream>
 #include <string>
 #include <memory>
-#include <Windows.h>
 
-#include "Error.h"
-#include "PathNotFoundError.h"
-#include "LockedFile.h"
+#include "LockedFile/Error.h"
+#include "LockedFile/PathNotFoundError.h"
+#include "LockedFile/LockedFile.h"
 
 //=============================================================================
 class utest_LockedFile {

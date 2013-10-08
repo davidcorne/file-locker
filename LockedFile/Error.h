@@ -14,12 +14,4 @@ public:
   virtual ~Error() = 0;
 };
 
-Error::Error()
-{
-}
-
-Error::~Error()
-{
-}
-
 #endif
