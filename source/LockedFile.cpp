@@ -3,6 +3,8 @@
 #include "LockedFile/FileInUseError.h"
 #include "LockedFile/WindowsError.h"
 
+#include <assert.h>
+
 //=============================================================================
 LockedFile::LockedFile(std::string path, std::unique_ptr<Error>& err)
 {
