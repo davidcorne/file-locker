@@ -10,6 +10,7 @@
 #include "LockedFile/Error.h"
 #include "LockedFile/WindowsError.h"
 #include "LockedFile/PathNotFoundError.h"
+#include "LockedFile/FileInUseError.h"
 #include "LockedFile/LockedFile.h"
 
 //=============================================================================
@@ -84,6 +85,9 @@ void utest_LockedFile::test_nested_locks()
       test(!error, "First lock should work.");
       LockedFile second_lock(path, error);
       test(error, "Second lock should not work.");
+      FileInUseError* path_error =
+        dynamic_cast<FileInUseError*>(error.get());
+      test(path_error, "This is not FileInUseError");
       error = 0;
     }
     LockedFile third_lock(path, error);
