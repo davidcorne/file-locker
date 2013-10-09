@@ -33,5 +33,6 @@ clean:
 	@echo "Removing object and executable files."
 
 #==============================================================================
-test: exe/utest.exe
+test:
+	@make
 	./exe/utest.exe
