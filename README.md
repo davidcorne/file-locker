@@ -63,3 +63,4 @@ Pass: Third lock should work.
 ## Implementation Problems ##
 
 - The dependencies in the makefile are not well set up. Somethimes if you change a header you need to manually remake other files (or `make -B`) to get them to compile.
+- The reading and writing in `LockedFile` says nothing about encoding.
