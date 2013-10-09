@@ -20,10 +20,12 @@ public:
     test_non_existant_file();
     test_file_write_lock();
     test_file_deletion();
+    test_nested_locks();
   }
 
 private:
 
+  void test_nested_locks();
   void test_non_existant_file();
   void test_file_deletion();
   void test_file_exists();
@@ -63,6 +65,28 @@ void utest_LockedFile::test_non_existant_file()
   std::unique_ptr<Error> error = 0;
   LockedFile("non_existant.txt", error);
   test(error, "File should not exist");
+}
+
+//=============================================================================
+void utest_LockedFile::test_nested_locks()
+{
+  print(__FUNCTION__);
+  std::string path("test_area/test_nested_locks.txt");
+  set_up_file(path);
+  std::unique_ptr<Error> error = 0;
+  {
+    {
+      LockedFile first_lock(path, error);
+      test(!error, "First lock should work.");
+      LockedFile second_lock(path, error);
+      test(error, "Second lock should not work.");
+      error = 0;
+    }
+    LockedFile third_lock(path, error);
+    test(!error, "Third lock should work.");
+  }
+  int result = remove(path.c_str());
+  assert(result == 0);
 }
 
 //=============================================================================
