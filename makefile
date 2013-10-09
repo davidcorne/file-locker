@@ -7,14 +7,17 @@ exe/utest.exe: \
         obj/LockedFile.obj \
         obj/Error.obj \
         obj/PathNotFoundError.obj
+	@mkdir -p exe
 	$(CC) $(CC_OPTS) $^ /Fe$@
 
 #==============================================================================
 obj/utest.obj: utest/utest.cpp test_area
+	@mkdir -p obj
 	$(CC) $(CC_OPTS) /c $< /Fo$@
 
 #==============================================================================
 obj/%.obj: source/%.cpp LockedFile/%.h
+	@mkdir -p obj
 	$(CC) $(CC_OPTS) /c $< /Fo$@
 
 #==============================================================================
