@@ -1,5 +1,6 @@
 #include "LockedFile/LockedFile.h"
 
+#include "LockedFile/FileInUseError.h"
 #include "LockedFile/WindowsError.h"
 
 //=============================================================================
@@ -17,8 +18,10 @@ LockedFile::LockedFile(std::string path, std::unique_ptr<Error>& err)
   if (INVALID_HANDLE_VALUE == m_file_handle) {
     // Check the error values, if it's one we know handle it appropriately
     DWORD error_value = GetLastError();
-    if (error_value == 2) {
+    if (error_value == ERROR_FILE_NOT_FOUND) {
       err.reset(new PathNotFoundError(path));
+    } else if (error_value == ERROR_SHARING_VIOLATION) {
+      err.reset(new FileInUseError(path));
     } else {
       err.reset(new WindowsError(error_value));
     }
