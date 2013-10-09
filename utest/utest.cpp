@@ -5,8 +5,6 @@
 #include <assert.h>
 #include <iostream>
 #include <fstream>
-#include <string>
-#include <memory>
 
 #include "LockedFile/Error.h"
 #include "LockedFile/PathNotFoundError.h"
@@ -57,8 +55,8 @@ void utest_LockedFile::test_file_locks()
   test_file.close();
   assert(!test_file.bad());
   
-  std::unique_ptr<Error> error = 0;
   {
+    std::unique_ptr<Error> error = 0;
     LockedFile file_lock(file_name, error);
     test(!error, "File should lock ok.");
     test_file.open(file_name, std::ios::out);
