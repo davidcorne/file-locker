@@ -82,6 +82,7 @@ std::string LockedFile::read() const
     &bytes_read,       // LPDWORD lpNumberOfBytesRead,
     NULL               // LPOVERLAPPED lpOverlapped
   );
+  // null terminate the string.
   buffer[bytes_read] = '\0';
   std::string file_as_string(buffer);
   delete[] buffer;
