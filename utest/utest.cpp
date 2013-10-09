@@ -73,6 +73,7 @@ void utest_LockedFile::test_file_deletion()
   {
     std::unique_ptr<Error> error = 0;
     LockedFile(path, error);
+    test(!error, "Should be no error");
     remove_result = remove(path.c_str());
     std::cout << remove_result << std::endl;
     test(remove_result != 0, "Should not be able to delete locked file.");
