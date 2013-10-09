@@ -149,6 +149,7 @@ void utest_LockedFile::test_read_file()
   LockedFile locked_file("data/test.txt", error);
   test(!error, "File should exist");
   std::string contents(locked_file.read());
+  test(contents == "Hi this is a file\n", "Read locked file incorrectly.");
 }
 
 //=============================================================================
