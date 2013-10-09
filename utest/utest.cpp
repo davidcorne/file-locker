@@ -23,10 +23,12 @@ public:
     test_file_write_lock();
     test_file_deletion();
     test_nested_locks();
+    test_read_file();
   }
 
 private:
 
+  void test_read_file();
   void test_nested_locks();
   void test_non_existant_file();
   void test_file_deletion();
@@ -140,11 +142,21 @@ void utest_LockedFile::test_file_write_lock()
 }
 
 //=============================================================================
+void utest_LockedFile::test_read_file()
+{
+  print(__FUNCTION__);
+  std::unique_ptr<Error> error = 0;
+  LockedFile locked_file("data/test.txt", error);
+  test(!error, "File should exist");
+  std::string contents(locked_file.read());
+}
+
+//=============================================================================
 void utest_LockedFile::test_file_exists()
 {
   print(__FUNCTION__);
   std::unique_ptr<Error> error = 0;
-  LockedFile("data/test.txt", error);
+  LockedFile file("data/test.txt", error);
   test(!error, "File should exist");
 }
 
