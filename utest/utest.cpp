@@ -18,7 +18,7 @@ public:
   void run_tests() {
     test_file_exists();
     test_non_existant_file();
-    test_file_locks();
+    test_file_write_lock();
     test_file_deletion();
   }
 
@@ -27,7 +27,7 @@ private:
   void test_non_existant_file();
   void test_file_deletion();
   void test_file_exists();
-  void test_file_locks();
+  void test_file_write_lock();
 
   void test(bool pass, std::string message) {
     if (pass) {
@@ -84,7 +84,7 @@ void utest_LockedFile::test_file_deletion()
 }
 
 //=============================================================================
-void utest_LockedFile::test_file_locks()
+void utest_LockedFile::test_file_write_lock()
 {
   print(__FUNCTION__);
   std::string file_name("test_area/test_file_locks.txt");
