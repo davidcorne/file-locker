@@ -47,6 +47,13 @@ private:
     std::cout << "\n" << banner <<  message << "\n" << banner << std::endl;
   }
 
+  void set_up_file(std::string path) {
+    std::ofstream test_file;
+    test_file.open(path, std::ios::out);
+    test_file << "Writing to this file.\n";
+    test_file.close();
+    assert(!test_file.bad());
+  }
 };
 
 //=============================================================================
@@ -62,18 +69,13 @@ void utest_LockedFile::test_non_existant_file()
 void utest_LockedFile::test_file_deletion()
 {
   print(__FUNCTION__);
-  std::string path("test_area/test_file_deletion");
-  std::ofstream test_file;
-  test_file.open(path, std::ios::out);
-  test_file << "Writing to this file.\n";
-  test_file.close();
-  assert(!test_file.bad());
-  
+  std::string path("test_area/test_file_deletion.txt");
+  set_up_file(path);
   int remove_result = 0;
   {
     std::unique_ptr<Error> error = 0;
     LockedFile file_lock(path, error);
-    test(!error, "Should be no error");
+    test(!error, "Should be no error from LockedFile");
     remove_result = remove(path.c_str());
     test(remove_result != 0, "Should not be able to delete locked file.");
   }
@@ -86,12 +88,8 @@ void utest_LockedFile::test_file_locks()
 {
   print(__FUNCTION__);
   std::string file_name("test_area/test_file_locks.txt");
+  set_up_file(file_name);
   std::ofstream test_file;
-  test_file.open(file_name, std::ios::out);
-  test_file << "Writing to this file.\n";
-  test_file.close();
-  assert(!test_file.bad());
-  
   {
     std::unique_ptr<Error> error = 0;
     LockedFile file_lock(file_name, error);
