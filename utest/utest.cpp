@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 #include "LockedFile/Error.h"
+#include "LockedFile/WindowsError.h"
 #include "LockedFile/PathNotFoundError.h"
 #include "LockedFile/LockedFile.h"
 
@@ -65,6 +66,9 @@ void utest_LockedFile::test_non_existant_file()
   std::unique_ptr<Error> error = 0;
   LockedFile("non_existant.txt", error);
   test(error, "File should not exist");
+  PathNotFoundError* path_error =
+    dynamic_cast<PathNotFoundError*>(error.get());
+  test(path_error, "This is not PathNotFoundError");
 }
 
 //=============================================================================
