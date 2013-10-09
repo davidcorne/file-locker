@@ -53,8 +53,15 @@ LockedFile::LockedFile(std::string path, std::unique_ptr<Error>& err)
   }
 }
 
+
 //=============================================================================
 LockedFile::~LockedFile()
 {
   CloseHandle(m_file_handle);
+}
+
+//=============================================================================
+std::string LockedFile::read() const
+{
+  return "";
 }

@@ -16,6 +16,9 @@ public:
 
   LockedFile(std::string path, std::unique_ptr<Error>& err);
 
+  std::string read() const;
+  // Read the entire file and return it as a string.
+  
   ~LockedFile();
   
 private:
