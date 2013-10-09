@@ -4,9 +4,19 @@
 
 This is a project to get a good RAII class for locking a file for reading and writing. This is implemented in C++.
 
+### The Purpose of Locking Files ###
+
+The main use of file locking is to stop someone writing to a file between you reading it and writing it back out changed. It also becomes important implementing databases and websites.
+
 ## Contents ##
 
 The main class in this repository is LockedFile, there are also supporting error classes and a unit test.
+
+## Application ##
+
+There is a sample application which will lock the files you give it on the command line.
+
+This is not that much use, but it shows what's going on.
 
 ## Implementation Details ##
 
