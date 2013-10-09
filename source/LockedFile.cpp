@@ -86,3 +86,8 @@ std::string LockedFile::read() const
   delete[] buffer;
   return file_as_string;
 }
+
+//=============================================================================
+void LockedFile::write(std::string contents)
+{
+}

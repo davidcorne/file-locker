@@ -18,6 +18,9 @@ public:
   std::string read() const;
   // Read the entire file and return it as a string.
   
+  void write(std::string contents);
+  // Overwrite the file with the contents of this string.
+  
   ~LockedFile();
   
 private:
