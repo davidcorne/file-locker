@@ -76,7 +76,7 @@ void utest_LockedFile::test_file_locks()
 void utest_LockedFile::test_file_exists()
 {
   std::unique_ptr<Error> error = 0;
-  LockedFile("test.txt", error);
+  LockedFile("data/test.txt", error);
   test(!error, "File should exist");
 }
 
