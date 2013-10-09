@@ -169,16 +169,22 @@ void utest_LockedFile::test_write_file()
   print(__FUNCTION__);
   std::string path("test_area/test_write_file.txt");
   set_up_file(path);
+  std::string contents("This is being written to a locked file.");
   {
     std::unique_ptr<Error> error = 0;
     LockedFile file_lock(path, error);
-    std::string contents("This is being written to a locked file.");
     file_lock.write(contents);
-    test(
-      file_lock.read() == contents,
-      "LockedFile read() and write() disagree."
-    );  
   }
+  std::string whole_file;
+  std::ifstream infile;
+  infile.open(path);
+  while(!infile.eof()) {
+    std::string line("");
+    std::getline(infile, line);
+    whole_file += line;
+  }
+  infile.close();
+  test(whole_file == contents, "LockedFile::write() did not work.");  
   int remove_result = remove(path.c_str());
   assert(remove_result == 0);  
 }
