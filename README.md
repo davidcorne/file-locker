@@ -10,19 +10,18 @@ The main use of file locking is to stop someone writing to a file between you re
 
 ## Contents ##
 
-The main class in this repository is LockedFile, there are also supporting error classes and a unit test.
+The main class in this repository is LockedFile. In the repository there is this class and some supporting error classes. There is also a comprehensive unit test.
 
-## Application ##
+### Application ###
 
-There is a sample application which will lock the files you give it on the command line.
-
-This is not that much use, but it shows what's going on.
+There is a sample application which uses the file locking. What this does is lock the files you give it on the command line.
 
 ## Implementation Details ##
 
 This repository is indended to be built using make and the Microsoft C++ compiler. This repository currently only works on windows.
 
-### Running Tests ###
+
+### Running Unit Test ###
 
 The entire project is built and the test run, by typing 
 
@@ -69,6 +68,14 @@ Pass: Second lock should not work.
 Pass: This is not FileInUseError
 Pass: Third lock should work.
 ```
+### Building the Application ##
+
+It is built using 
+
+    make
+
+in the application directory. The executable is found under exe.
+
 
 ## Implementation Problems ##
 
