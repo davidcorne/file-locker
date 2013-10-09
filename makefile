@@ -29,3 +29,7 @@ test_area:
 clean:
 	@rm -r obj exe
 	@echo "Removing object and executable files."
+
+#==============================================================================
+test: exe/utest.exe
+	./exe/utest.exe
