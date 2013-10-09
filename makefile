@@ -7,6 +7,7 @@ exe/utest.exe: \
         obj/LockedFile.obj \
         obj/Error.obj \
         obj/PathNotFoundError.obj \
+        obj/FileInUseError.obj \
         obj/WindowsError.obj
 	@mkdir -p exe
 	$(CC) $(CC_OPTS) $^ /Fe$@
