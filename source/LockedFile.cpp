@@ -1,5 +1,7 @@
 #include "LockedFile/LockedFile.h"
 
+#include "LockedFile/WindowsError.h"
+
 //=============================================================================
 LockedFile::LockedFile(std::string path, std::unique_ptr<Error>& err)
 {
@@ -13,9 +15,9 @@ LockedFile::LockedFile(std::string path, std::unique_ptr<Error>& err)
     NULL                          // HANDLE hTemplateFile
   );
   if (INVALID_HANDLE_VALUE == m_file_handle) {
-    // the most likly culprit, possible to instead call GetLastError and
-    // check what exactly went wrong, leave for another day.
-    err.reset(new PathNotFoundError(path));
+    DWORD error_value = GetLastError();
+    err.reset(new WindowsError(error_value));
+    // <nnn> err.reset(new PathNotFoundError(path));
   } else {
     // find the file size
     BOOL ok = FALSE;
