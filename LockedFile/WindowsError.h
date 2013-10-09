@@ -2,13 +2,12 @@
 #define WindowsError_H
 
 #include "Error.h"
-#include <Windows.h>
 
 //=============================================================================
 class WindowsError : public Error {
 public:
 
-  WindowsError(DWORD windows_error_code);
+  WindowsError(int windows_error_code);
 
   virtual std::string to_string() const override;
 
@@ -16,7 +15,7 @@ public:
   
 private:
 
-  DWORD m_error_code;
+  int m_error_code;
 };
 
 #endif

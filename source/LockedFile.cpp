@@ -15,9 +15,13 @@ LockedFile::LockedFile(std::string path, std::unique_ptr<Error>& err)
     NULL                          // HANDLE hTemplateFile
   );
   if (INVALID_HANDLE_VALUE == m_file_handle) {
+    // Check the error values, if it's one we know handle it appropriately
     DWORD error_value = GetLastError();
-    err.reset(new WindowsError(error_value));
-    // <nnn> err.reset(new PathNotFoundError(path));
+    if (error_value == 2) {
+      err.reset(new PathNotFoundError(path));
+    } else {
+      err.reset(new WindowsError(error_value));
+    }
   } else {
     // find the file size
     BOOL ok = FALSE;

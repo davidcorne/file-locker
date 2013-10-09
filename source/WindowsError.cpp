@@ -10,7 +10,7 @@
 #include <Windows.h>
 
 //=============================================================================
-WindowsError::WindowsError(DWORD windows_error_code)
+WindowsError::WindowsError(int windows_error_code)
   : m_error_code(windows_error_code)
 {
 }
