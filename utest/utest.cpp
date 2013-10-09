@@ -172,7 +172,12 @@ void utest_LockedFile::test_write_file()
   {
     std::unique_ptr<Error> error = 0;
     LockedFile file_lock(path, error);
-    file_lock.write("This is being written to a locked file.");
+    std::string contents("This is being written to a locked file.");
+    file_lock.write(contents);
+    test(
+      file_lock.read() == contents,
+      "LockedFile read() and write() disagree."
+    );  
   }
   int remove_result = remove(path.c_str());
   assert(remove_result == 0);  
