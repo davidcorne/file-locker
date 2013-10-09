@@ -25,3 +25,7 @@ test_area:
 # Make the temporary test files area
 	@mkdir $@
 
+#==============================================================================
+clean:
+	@rm -r obj exe
+	@echo "Removing object and executable files."
