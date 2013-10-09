@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 
 #include "LockedFile/Error.h"
 #include "LockedFile/PathNotFoundError.h"
@@ -48,7 +49,7 @@ void utest_LockedFile::test_non_existant_file()
 //=============================================================================
 void utest_LockedFile::test_file_locks()
 {
-  std::string file_name("test_area/temporary_data.txt");
+  std::string file_name("test_area/test_file_locks.txt");
   std::ofstream test_file;
   test_file.open(file_name, std::ios::out);
   test_file << "Writing to this file.\n";
@@ -68,6 +69,8 @@ void utest_LockedFile::test_file_locks()
   test_file << "";
   test_file.close();
   test(!test_file.bad(), "Should write correctly.");
+  int remove_result = remove(file_name.c_str());
+  assert(remove_result == 0);
 }
 
 //=============================================================================
