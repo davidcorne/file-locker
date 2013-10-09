@@ -63,5 +63,24 @@ LockedFile::~LockedFile()
 //=============================================================================
 std::string LockedFile::read() const
 {
-  return "";
+  LARGE_INTEGER file_size;
+  BOOL ok = FALSE;
+  ok = GetFileSizeEx(
+    m_file_handle, // HANDLE hFile,
+    &file_size     // PLARGE_INTEGER lpFileSize
+  );
+  assert(ok);
+
+  char* buffer = new char[file_size.LowPart + 1];
+  DWORD  bytes_read = 0;
+  ReadFile(
+    m_file_handle,     // HANDLE hFile,
+    buffer,            // LPVOID lpBuffer,
+    file_size.LowPart, // DWORD nNumberOfBytesToRead,
+    &bytes_read,       // LPDWORD lpNumberOfBytesRead,
+    NULL               // LPOVERLAPPED lpOverlapped
+  );
+  std::string file_as_string(buffer);
+  delete[] buffer;
+  return file_as_string;
 }
