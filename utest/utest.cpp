@@ -24,6 +24,7 @@ public:
     test_file_deletion();
     test_nested_locks();
     test_read_file();
+    test_multiple_read();
     test_write_file();
     test_read_and_write();
   }
@@ -38,6 +39,7 @@ private:
   void test_file_exists();
   void test_file_write_lock();
   void test_read_and_write();
+  void test_multiple_read();
 
   void test(bool pass, std::string message) {
     if (pass) {
@@ -192,6 +194,28 @@ void utest_LockedFile::test_write_file()
 }
 
 //=============================================================================
+void utest_LockedFile::test_multiple_read()
+{
+  print(__FUNCTION__);
+  std::string path("test_area/test_multiple_read.txt");
+  set_up_file(path);
+  {
+    std::unique_ptr<Error> error = 0;
+    LockedFile file_lock(path, error);
+    std::string first_read(file_lock.read());
+    for (int i = 0; i < 10; ++i) {
+      std::string current_read(file_lock.read());
+      test(
+        first_read == current_read,
+        "Multiple reads give different results."
+      );
+    }
+  }
+  int remove_result = remove(path.c_str());
+  assert(remove_result == 0);  
+}
+
+//=============================================================================
 void utest_LockedFile::test_read_and_write()
 {
   print(__FUNCTION__);
@@ -202,10 +226,8 @@ void utest_LockedFile::test_read_and_write()
     LockedFile file_lock(path, error);
     std::string contents("This is being written to a locked file.");
     file_lock.write(contents);
-    test(
-      file_lock.read() == contents,
-      "LockedFile read() and write() disagree."
-    );  
+    std::string read(file_lock.read());
+    test(read == contents, "LockedFile read() and write() disagree.");
   }
   int remove_result = remove(path.c_str());
   assert(remove_result == 0); 
