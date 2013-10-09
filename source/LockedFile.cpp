@@ -90,4 +90,12 @@ std::string LockedFile::read() const
 //=============================================================================
 void LockedFile::write(std::string contents)
 {
+  DWORD bytes_written;
+  WriteFile(
+    m_file_handle,    // HANDLE hFile,
+    contents.c_str(), // LPCVOID lpBuffer,
+    contents.length(),// DWORD nNumberOfBytesToWrite,
+    &bytes_written,   // LPDWORD lpNumberOfBytesWritten,
+    NULL              // LPOVERLAPPED lpOverlapped
+  );  
 }
