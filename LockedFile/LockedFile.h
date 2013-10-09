@@ -28,7 +28,10 @@ private:
   LockedFile(const LockedFile&);
   LockedFile& operator=(const LockedFile&);
   // cannot copy or assign
-  
+
+  void reset_handle_pointer() const;
+  // Reset the file handle to the begining of the file.
+  // Should be called after any read/write operation.
   Error* m_error;
   HANDLE m_file_handle;
   

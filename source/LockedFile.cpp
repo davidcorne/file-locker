@@ -82,9 +82,22 @@ std::string LockedFile::read() const
     &bytes_read,       // LPDWORD lpNumberOfBytesRead,
     NULL               // LPOVERLAPPED lpOverlapped
   );
+  buffer[bytes_read] = '\0';
   std::string file_as_string(buffer);
   delete[] buffer;
+  reset_handle_pointer();
   return file_as_string;
+}
+
+//=============================================================================
+void LockedFile::reset_handle_pointer() const
+{
+  SetFilePointer(
+    m_file_handle, // HANDLE hFile,
+    0,             // LONG lDistanceToMove,
+    NULL,          // PLONG lpDistanceToMoveHigh,
+    FILE_BEGIN     // DWORD dwMoveMethod
+  );
 }
 
 //=============================================================================
@@ -97,5 +110,7 @@ void LockedFile::write(std::string contents)
     contents.length(),// DWORD nNumberOfBytesToWrite,
     &bytes_written,   // LPDWORD lpNumberOfBytesWritten,
     NULL              // LPOVERLAPPED lpOverlapped
-  );  
+  );
+  assert(bytes_written == contents.length());
+  reset_handle_pointer();
 }
