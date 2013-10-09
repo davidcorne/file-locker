@@ -55,7 +55,7 @@ void utest_LockedFile::test_file_locks()
   test_file.open(file_name, std::ios::out);
   test_file << "Writing to this file.\n";
   test_file.close();
-  test(!test_file.bad(), "Should write correctly.");
+  assert(!test_file.bad());
   
   std::unique_ptr<Error> error = 0;
   {
