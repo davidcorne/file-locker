@@ -19,11 +19,13 @@ public:
     test_file_exists();
     test_non_existant_file();
     test_file_locks();
+    test_file_deletion();
   }
 
 private:
 
   void test_non_existant_file();
+  void test_file_deletion();
   void test_file_exists();
   void test_file_locks();
 
@@ -36,6 +38,7 @@ private:
     std::cout << message << std::endl;
     assert(pass);
   }
+  
   void print(std::string message) {
     std::string banner(
       "========================================"
@@ -43,6 +46,7 @@ private:
     );
     std::cout << "\n" << banner <<  message << "\n" << banner << std::endl;
   }
+
 };
 
 //=============================================================================
@@ -52,6 +56,30 @@ void utest_LockedFile::test_non_existant_file()
   std::unique_ptr<Error> error = 0;
   LockedFile("non_existant.txt", error);
   test(error, "File should not exist");
+}
+
+//=============================================================================
+void utest_LockedFile::test_file_deletion()
+{
+  print(__FUNCTION__);
+  std::string path("test_area/test_file_deletion");
+  std::ofstream test_file;
+  test_file.open(path, std::ios::out);
+  test_file << "Writing to this file.\n";
+  test_file.close();
+  assert(!test_file.bad());
+  
+  int remove_result = 0;
+  {
+    std::unique_ptr<Error> error = 0;
+    LockedFile(path, error);
+    remove_result = remove(path.c_str());
+    std::cout << remove_result << std::endl;
+    test(remove_result != 0, "Should not be able to delete locked file.");
+  }
+  remove_result = remove(path.c_str());
+  std::cout << remove_result << std::endl;
+  test(remove_result == 0, "File shouldn't be locked any more.");
 }
 
 //=============================================================================
