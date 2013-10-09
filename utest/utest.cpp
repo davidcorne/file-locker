@@ -36,11 +36,19 @@ private:
     std::cout << message << std::endl;
     assert(pass);
   }
+  void print(std::string message) {
+    std::string banner(
+      "========================================"
+      "=======================================\n"
+    );
+    std::cout << "\n" << banner <<  message << "\n" << banner << std::endl;
+  }
 };
 
 //=============================================================================
 void utest_LockedFile::test_non_existant_file()
 {
+  print(__FUNCTION__);
   std::unique_ptr<Error> error = 0;
   LockedFile("non_existant.txt", error);
   test(error, "File should not exist");
@@ -49,6 +57,7 @@ void utest_LockedFile::test_non_existant_file()
 //=============================================================================
 void utest_LockedFile::test_file_locks()
 {
+  print(__FUNCTION__);
   std::string file_name("test_area/test_file_locks.txt");
   std::ofstream test_file;
   test_file.open(file_name, std::ios::out);
@@ -76,6 +85,7 @@ void utest_LockedFile::test_file_locks()
 //=============================================================================
 void utest_LockedFile::test_file_exists()
 {
+  print(__FUNCTION__);
   std::unique_ptr<Error> error = 0;
   LockedFile("data/test.txt", error);
   test(!error, "File should exist");
