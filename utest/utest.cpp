@@ -25,6 +25,7 @@ public:
     test_nested_locks();
     test_read_file();
     test_write_file();
+    test_read_and_write();
   }
 
 private:
@@ -36,6 +37,7 @@ private:
   void test_file_deletion();
   void test_file_exists();
   void test_file_write_lock();
+  void test_read_and_write();
 
   void test(bool pass, std::string message) {
     if (pass) {
@@ -187,6 +189,26 @@ void utest_LockedFile::test_write_file()
   test(whole_file == contents, "LockedFile::write() did not work.");  
   int remove_result = remove(path.c_str());
   assert(remove_result == 0);  
+}
+
+//=============================================================================
+void utest_LockedFile::test_read_and_write()
+{
+  print(__FUNCTION__);
+  std::string path("test_area/test_read_and_write.txt");
+  set_up_file(path);
+  {
+    std::unique_ptr<Error> error = 0;
+    LockedFile file_lock(path, error);
+    std::string contents("This is being written to a locked file.");
+    file_lock.write(contents);
+    test(
+      file_lock.read() == contents,
+      "LockedFile read() and write() disagree."
+    );  
+  }
+  int remove_result = remove(path.c_str());
+  assert(remove_result == 0); 
 }
 
 //=============================================================================
